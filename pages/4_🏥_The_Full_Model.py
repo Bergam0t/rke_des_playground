@@ -42,99 +42,99 @@ st.markdown("Once you have run more than one scenario, try out the new tab 'comp
 gc.collect()
 
 # tab1, tab2, tab3, tab4 = st.tabs(["Introduction", "Exercises", "Playground", "Compare Scenario Outputs"])
-tab4, tab2, tab1, tab3 = st.tabs(["Information", "Exercise", "Playground", "Compare Scenario Outputs"])
+tab1, tab2 = st.tabs(["Playground", "Compare Scenario Outputs"])
 
-with tab4:
-    st.markdown("""
-                So now we have explored every component of the model:
-                - Generating arrivals
-                - Generating and using resources
-                - Sending people down different paths
+# with tab4:
+#     st.markdown("""
+#                 So now we have explored every component of the model:
+#                 - Generating arrivals
+#                 - Generating and using resources
+#                 - Sending people down different paths
 
-                So now let's create a version of the model that uses all of these aspects.
+#                 So now let's create a version of the model that uses all of these aspects.
 
-                For now, we won't consider nurses separately - we will assume that each nurse on shift has one room that is theirs to always use.
-                """
-                )
+#                 For now, we won't consider nurses separately - we will assume that each nurse on shift has one room that is theirs to always use.
+#                 """
+#                 )
 
-    mermaid(height=600, code=
-    """
-    %%{ init: { 'flowchart': { 'curve': 'step' } } }%%
-    %%{ init: {  'theme': 'base', 'themeVariables': {'lineColor': '#b4b4b4'} } }%%
-    flowchart LR
-        A[Arrival] --> BX[Triage]
-        BX -.-> T([Triage Bay\n<b>RESOURCE</b>])
-        T -.-> BX
+#     mermaid(height=600, code=
+#     """
+#     %%{ init: { 'flowchart': { 'curve': 'step' } } }%%
+#     %%{ init: {  'theme': 'base', 'themeVariables': {'lineColor': '#b4b4b4'} } }%%
+#     flowchart LR
+#         A[Arrival] --> BX[Triage]
+#         BX -.-> T([Triage Bay\n<b>RESOURCE</b>])
+#         T -.-> BX
 
-        BX --> BY{Trauma or non-trauma}
-        BY ----> B1{Trauma Pathway}
-        BY ----> B2{Non-Trauma Pathway}
+#         BX --> BY{Trauma or non-trauma}
+#         BY ----> B1{Trauma Pathway}
+#         BY ----> B2{Non-Trauma Pathway}
 
-        B1 --> C[Stabilisation]
-        C --> E[Treatment]
+#         B1 --> C[Stabilisation]
+#         C --> E[Treatment]
 
-        B2 --> D[Registration]
-        D --> G[Examination]
+#         B2 --> D[Registration]
+#         D --> G[Examination]
 
-        G --> H[Treat?]
-        H ----> F
+#         G --> H[Treat?]
+#         H ----> F
 
-        H --> I[Non-Trauma Treatment]
-        I --> F
+#         H --> I[Non-Trauma Treatment]
+#         I --> F
 
-        C -.-> Z([Trauma Room\n<b>RESOURCE</b>])
-        Z -.-> C
+#         C -.-> Z([Trauma Room\n<b>RESOURCE</b>])
+#         Z -.-> C
 
-        E -.-> Y([Cubicle - 1\n<b>RESOURCE</b>])
-        Y -.-> E
+#         E -.-> Y([Cubicle - 1\n<b>RESOURCE</b>])
+#         Y -.-> E
 
-        D -.-> X([Clerks\n<b>RESOURCE</b>])
-        X -.-> D
+#         D -.-> X([Clerks\n<b>RESOURCE</b>])
+#         X -.-> D
 
-        G -.-> W([Exam Room\n<b>RESOURCE</b>])
-        W -.-> G
+#         G -.-> W([Exam Room\n<b>RESOURCE</b>])
+#         W -.-> G
 
-        I -.-> V([Cubicle - 2\n<b>RESOURCE</b>])
-        V -.-> I
+#         I -.-> V([Cubicle - 2\n<b>RESOURCE</b>])
+#         V -.-> I
 
-        E ----> F[Discharge]
+#         E ----> F[Discharge]
 
-        classDef ZZ1 fill:#8B5E0F,font-family:lexend, color:#FFF
-        classDef ZZ2 fill:#5DFDA0,font-family:lexend
-        classDef ZZ2a fill:#02CD55,font-family:lexend, color:#FFF
-        classDef ZZ3 fill: #D45E5E,font-family:lexend
-        classDef ZZ3a fill: #932727,font-family:lexend, color:#FFF
-        classDef ZZ4 fill: #611D67,font-family:lexend, color:#FFF
-        classDef ZZ5 fill:#47D7FF,font-family:lexend
-        classDef ZZ5a fill:#00AADA,font-family:lexend
+#         classDef ZZ1 fill:#8B5E0F,font-family:lexend, color:#FFF
+#         classDef ZZ2 fill:#5DFDA0,font-family:lexend
+#         classDef ZZ2a fill:#02CD55,font-family:lexend, color:#FFF
+#         classDef ZZ3 fill: #D45E5E,font-family:lexend
+#         classDef ZZ3a fill: #932727,font-family:lexend, color:#FFF
+#         classDef ZZ4 fill: #611D67,font-family:lexend, color:#FFF
+#         classDef ZZ5 fill:#47D7FF,font-family:lexend
+#         classDef ZZ5a fill:#00AADA,font-family:lexend
 
-        class A ZZ1
-        class C,E ZZ2
-        class D,G ZZ3
-        class X,W ZZ3a
-        class Z,Y ZZ2a
-        class I,V ZZ4
-        class BX ZZ5
-        class T ZZ5a
-        ;
-    """
-)
+#         class A ZZ1
+#         class C,E ZZ2
+#         class D,G ZZ3
+#         class X,W ZZ3a
+#         class Z,Y ZZ2a
+#         class I,V ZZ4
+#         class BX ZZ5
+#         class T ZZ5a
+#         ;
+#     """
+# )
 
-with tab2:
-    st.header("Things to Try")
+# with tab2:
+#     st.header("Things to Try")
 
-    st.markdown(
-        """
-        - First, just run the model with the default settings.
-            - Look at the graphs and animated patient log. What is the performance of the system like?
-            - Are the queues consistent throughout the day?
-        ---
-        - Due to building work taking place, the hospital will temporarily need to close several bays.
-        It will be possible to have a maximum of 20 bays/cubicles/rooms in total across the whole system.
-            - What is the best configuration you can find to keep the average wait times as low as possible across both trauma and non-trauma pathways?
-        *Make sure you are using the default probabilities for trauma/non-trauma patients (0.3) and treatment of non-trauma patients (0.7)*
-        """
-    )
+#     st.markdown(
+#         """
+#         - First, just run the model with the default settings.
+#             - Look at the graphs and animated patient log. What is the performance of the system like?
+#             - Are the queues consistent throughout the day?
+#         ---
+#         - Due to building work taking place, the hospital will temporarily need to close several bays.
+#         It will be possible to have a maximum of 20 bays/cubicles/rooms in total across the whole system.
+#             - What is the best configuration you can find to keep the average wait times as low as possible across both trauma and non-trauma pathways?
+#         *Make sure you are using the default probabilities for trauma/non-trauma patients (0.3) and treatment of non-trauma patients (0.7)*
+#         """
+#     )
 
 with tab1:
 
@@ -686,7 +686,7 @@ with tab1:
 #################################################
 # Create area for exploring all session results
 #################################################
-with tab3:
+with tab2:
     if len(st.session_state['session_results']) > 0:
 
         all_run_results = pd.concat(st.session_state['session_results'])
