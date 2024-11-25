@@ -272,7 +272,9 @@ if button_run_pressed:
 """
 The plot below shows a snapshot every 5 minutes of the position of everyone in our emergency department model.
 
-The buttons to the left of the slider below the plot can be used to start and stop the animation.
+The blue dots in the treatment area indicate the number of nurses we have available.
+
+The play and pause buttons to the left of the slider below the plot can be used to start and stop the animation.
 
 Clicking on the bar below the plot and dragging your cursor to the left or right allows you to rapidly jump through to a different time in the simulation.
 
@@ -312,7 +314,7 @@ Only the first replication of the simulation is shown.
         in_range_util = sum((results.mean().filter(like="util")<0.85) & (results.mean().filter(like="util") > 0.65))
         in_range_wait = sum((results.mean().filter(like="wait")<120))
 
-        col_res_a, col_res_b = st.columns([1,1])
+        col_res_a, col_res_b, col_res_c = st.columns([1,1,1])
 
         with col_res_a:
             st.metric(label=":bed: **Utilisation Metrics in Ideal Range**", value="{} of {}".format(in_range_util, len(results.mean().filter(like="util"))))
@@ -406,8 +408,6 @@ Only the first replication of the simulation is shown.
                 use_container_width=True,
                 config = {'displayModeBar': False}
             )
-
-        col_res_c, col_res_d = st.columns(2)
 
         with col_res_c:
             #util_fig_simple = px.bar(results.mean().filter(like="wait"), opacity=0.5)
