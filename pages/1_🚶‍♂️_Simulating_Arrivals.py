@@ -371,9 +371,9 @@ if button_run_pressed:
         # Update status text.
         status_text.text(status_text_string)
 
-    col_a_1, col_a_2 = st.columns(2)
+    tab_a_1, tab_a_2 = st.tabs(["Total Patients per Run", "Average Daily Patients per Run"])
 
-    with col_a_1:
+    with tab_a_1:
         st.subheader(
             "Histogram: Total Patients per Run"
         )
@@ -402,7 +402,7 @@ if button_run_pressed:
             use_container_width=True
         )
 
-    with col_a_2:
+    with tab_a_2:
         st.subheader(
                 "Histogram: Average Daily Patients per Run"
         )
